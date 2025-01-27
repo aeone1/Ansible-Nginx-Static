@@ -1,0 +1,23 @@
+---
+- name: Install Nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+
+- name: Create static directory
+  ansible.builtin.file:
+    path: /var/www/static
+    state: directory
+    mode: 0755
+
+- name: Deploy Nginx config
+  ansible.builtin.template:
+    src: default_vhost.conf.j2
+    dest: /etc/nginx/sites-available/default
+  notify: Restart Nginx
+
+- name: Enable Nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: yes

@@ -1,0 +1,7 @@
+---
+- name: Sync static files
+  ansible.builtin.synchronize:
+    src: "{{ static_files_src }}"
+    dest: "{{ static_files_dest }}"
+    mode: push
+    delete: yes
