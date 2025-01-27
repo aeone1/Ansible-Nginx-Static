@@ -1,0 +1,4 @@
+vault_users:
+  - name: alice
+    password: "$6$HASHED_PASSWORD"  # Use `mkpasswd --method=SHA-512` to generate
+    ssh_key: "ssh-rsa AAA... alice@example.com"

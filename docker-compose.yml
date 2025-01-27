@@ -8,4 +8,5 @@ services:
       - "2222:22"
     volumes:
       - ./images:/var/www/html/images
+      - ~/.ssh/id_rsa.pub:/root/.ssh/authorized_keys
     container_name: nginx_server
