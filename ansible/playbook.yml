@@ -1,0 +1,6 @@
+---
+- name: Deploy Nginx with /images route
+  hosts: webserver
+  become: yes
+  roles:
+    - nginx

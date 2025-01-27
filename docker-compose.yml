@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  webserver:
+    build: .
+    ports:
+      - "80:80"
+      - "2222:22"
+    volumes:
+      - ./images:/var/www/html/images
+    container_name: nginx_server
