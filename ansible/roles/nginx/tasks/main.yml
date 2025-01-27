@@ -1,0 +1,27 @@
+---
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Download multiple images
+  command: >
+    wget {{ item.url }} -O /var/www/html/images/{{ item.filename }}
+  args:
+    creates: /var/www/html/images/{{ item.filename }}
+  loop:
+    - { url: "https://i.imgur.com/8PXuCaN.jpeg", filename: "8PXuCaN.jpeg" }
+    - { url: "https://i.imgur.com/VFfoCsO.jpeg", filename: "VFfoCsO.jpeg" }
+    - { url: "https://i.imgur.com/zZD3P2O.jpeg", filename: "zZD3P2O.jpeg" }
+
+- name: Configure Nginx
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify: Restart Nginx
+
+- name: Ensure Nginx is running
+  service:
+    name: nginx
+    state: started
+    enabled: yes
