@@ -7,8 +7,3 @@
     group: root
     mode: 0644
   notify: Restart SSH
-
-- name: Restart SSH
-  ansible.builtin.service:
-    name: ssh
-    state: restarted

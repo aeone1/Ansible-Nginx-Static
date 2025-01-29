@@ -3,7 +3,8 @@ FROM ubuntu:24.04
 
 # Install necessary packages
 RUN apt-get update && \
-    apt-get install -y openssh-server nginx wget && \
+    apt-get install -y openssh-server nginx wget python3-apt rsync && \
+    apt-get clean && \
     mkdir /var/run/sshd && \
     echo 'root:password' | chpasswd && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \

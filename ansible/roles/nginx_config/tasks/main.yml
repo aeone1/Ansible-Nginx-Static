@@ -16,8 +16,24 @@
     dest: /etc/nginx/sites-available/default
   notify: Restart Nginx
 
+# - name: Check Nginx service status
+#   ansible.builtin.command: service nginx status
+#   register: nginx_status
+#   ignore_errors: yes
+
+# - name: Debug Nginx service status
+#   ansible.builtin.debug:
+#     var: nginx_status.stdout
+
 - name: Enable Nginx
   ansible.builtin.service:
     name: nginx
     state: started
     enabled: yes
+    use: service  # Explicitly use the `service` command
+  become: yes
+
+- name: Manually enable Nginx on boot (sysvinit)
+  ansible.builtin.command: update-rc.d nginx defaults
+  become: yes
+  when: ansible_service_mgr != "systemd"

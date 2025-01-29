@@ -13,7 +13,10 @@
 - name: Run OhMyZsh installer
   ansible.builtin.command: /tmp/install-oh-my-zsh.sh --unattended
   args:
-    creates: "{{ item.home }}/.oh-my-zsh"
+    creates: "{{ item.home | default('/home/' + item.name) }}/.oh-my-zsh"
   loop: "{{ users | selectattr('shell', 'search', 'zsh') | list }}"
   loop_control:
     label: "{{ item.name }}"
+  become: yes
+  become_user: "{{ item.name }}"
+  become_method: su
