@@ -8,5 +8,3 @@
     - ssh_harden
     - nginx_config
     - static_files
-  handlers:
-    - include_tasks: handlers/main.yml
